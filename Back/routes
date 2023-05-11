@@ -1,0 +1,40 @@
+/api/auth/signup = register
+{
+    "username":"",
+    "email":"",
+    "password":"",
+    "roles":[""]
+}
+/api/auth/signin = login
+{
+    "username":"",
+    "password":""
+}
+
+/api/auth/edit = edituser
+{
+    "username":"",  #เปลี่ยนได้
+    "password":"",  #check password
+    "email":""      #เปลี่ยนได้
+}
+
+/api/auth/getuserpk = put user
+[x-access-token]
+
+/api/blog/create =  createblog
+[x-access-token]
+{
+    "title":"test",
+    "content":"test",
+    "author":"admin"
+}
+
+/api/blogs = put all blog
+
+/api/blog/:slug = put one blog  method : get
+
+/api/blog/:slug = delete one blog method : delete
+[x-access-token]
+
+/api/getbloguser = put blogs user create
+[x-access-token]

@@ -1,0 +1,40 @@
+version: '3.8'
+name: testbackend
+services:
+  db:
+    image: mariadb:10.5
+    restart: always
+    stdin_open: true
+    environment:
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: password
+      MYSQL_DATABASE: testauth
+      MYSQL_ROOT_PASSWORD: 12345678
+    volumes:
+      - db:/var/lib/mysql
+    # ports:
+    #   - 11051:3306
+    networks:
+      - test-base
+
+  backend:
+    build: ./Back
+    image: testbackend
+    ports:
+      - 11055:8000
+    volumes:
+      - ./back:/api
+    restart: always
+    stdin_open: true
+    depends_on:
+      - db
+    networks:
+      - test-base
+  # backend:
+  #   build: ./back
+  #   network_mode: "service:db"
+
+networks:
+  test-base:
+volumes:
+    db:
